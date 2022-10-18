@@ -27,7 +27,7 @@ if($conn->connect_error){
         $stmt->execute();
     //var_dump($stmt);
     echo"<h1 id='h1'>"."registration successfully"."</h1>";
-    header("refresh:1; url=recherche_stag.php");
+    header("refresh:1; url=.php");
     }
     $stmt->close();
     $conn->close();
