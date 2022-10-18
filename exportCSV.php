@@ -4,7 +4,7 @@
 $dbHost     = "localhost"; 
 $dbUsername = "root"; 
 $dbPassword = ""; 
-$dbName     = "g2r_stock"; 
+$dbName     = "stage"; 
  
 // création de la connexion
 $db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName); 
@@ -15,22 +15,22 @@ if ($db->connect_error) {
 }
  
 // Récupérer les éléments de la base de données 
-$query = $db->query("SELECT * FROM ajout_emprunt ORDER BY id ASC"); 
+$query = $db->query("SELECT * FROM ajout_stag ORDER BY id ASC"); 
  
 if($query->num_rows > 0){ 
     $delimiter = ","; 
-    $filename = "emprunt_" . date('Y-m-d') . ".csv"; 
+    $filename = "stag_" . date('Y-m-d') . ".csv"; 
      
     // créer un dossier
     $f = fopen('php://memory', 'w'); 
      
     // Définir les en-têtes de colonne 
-    $fields = array('NOM PRENOM', 'STATUT', 'PC', 'QUANTITE', 'DATE DE PRET', 'DATE DE RESTITUTION', 'VILLE', 'IP'); 
+    $fields = array('NOM','PRENOM', 'adresse mail', 'DATE D\'inscription', 'Nombre de leçons', 'Nombre de chapitres', 'Nombre de modules', 'nombre de quizz', 'nombre de points','dernière connexion'); 
     fputcsv($f, $fields, $delimiter); 
      
     // Sortie de chaque ligne de données, conversion de la ligne en csv et écriture dans le dossier du fichier. 
     while($row = $query->fetch_assoc()){ 
-        $lineData = array($row['id'], $row['nom'], $row['stag'], $row['emplo'], $row['model'], $row['qty'], $row['pret'],$row['retour'],$row['ip'],$row['ville']); 
+        $lineData = array($row['id'], $row['nom'], $row['prenom'], $row['email'], $row['inscription'], $row['leçcons'], $row['chapitres'], $row['modules'],$row['quizz'],$row['points'],$row['dercon']); 
         fputcsv($f, $lineData, $delimiter); 
     } 
      
